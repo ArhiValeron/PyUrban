@@ -22,11 +22,12 @@ primes = []
 not_primes = []
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
-for i in numbers:
+for i in numbers[1::]:
     if SimpleNum(i):
         primes.append(i)
     else:
         not_primes.append(i)
+        
 print(numbers)
 print(primes)
 print(not_primes)
