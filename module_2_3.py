@@ -10,7 +10,8 @@ listC = [42, 69, 322, 13, 0, 99, -5, 9, 8, 7, -6, 5]
 wnum = 0
 while True:
     if listC[wnum] >= 0:
-        print(listC[wnum])
+        if listC[wnum] > 0:
+            print(listC[wnum])
         if wnum < len(listC)-1:
             wnum += 1
             continue

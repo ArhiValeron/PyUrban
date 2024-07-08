@@ -27,7 +27,7 @@ for i in numbers[1::]:
         primes.append(i)
     else:
         not_primes.append(i)
-        
+
 print(numbers)
 print(primes)
 print(not_primes)
