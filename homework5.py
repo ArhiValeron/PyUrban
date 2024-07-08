@@ -1,14 +1,32 @@
-my_list = ["Яблоко", "Груша", "Апельсин", "Банан", "Вишня"]
-print(my_list)
-print(my_list[0])
-print(my_list[-1])
-print(my_list[2:5])
-my_list[2] = "Мандарин"
-print(my_list)
 
-my_dict = {"apple": "Яблоко", "pear": "Груша", "orange": "Апельсин"}
-print(my_dict)
-print(my_dict['pear'])
-my_dict["apple"] = "Яблоко_"
-my_dict["banana"] = "Банан"
-print(my_dict)
+#  Задайте переменные разных типов данных:
+#   - Создайте переменную immutable_var и присвойте ей кортеж из нескольких элементов разных типов данных.
+#   - Выполните операции вывода кортежа immutable_var на экран.
+#
+# 3. Изменение значений переменных:
+#   - Попытайтесь изменить элементы кортежа immutable_var. Объясните, почему нельзя изменить значения элементов кортежа.
+
+int1 = 1111
+str1 = 'Kuku'
+immutable_var = (int1, 1, 'Stroke', str1)
+print(immutable_var)
+print(int1, str1)
+int1 = "Kaka"
+str1 = 2222
+print(immutable_var)
+print(int1, str1)
+# Напрямую попытка изменений данных в кортеже недопустима,
+# но также из этого примера видно что кортеж не сохраняет ссылки на обьекты а,
+# сохраняет непосредственно их значения в момент создания
+
+
+# Создание изменяемых структур данных:
+#   - Создайте переменную mutable_list и присвойте ей список из нескольких элементов.
+#   - Измените элементы списка mutable_list.
+#   - Выведите на экран измененный список mutable_list.
+
+mutable_list = [11, 22, "DSdad", False, "ddsa" ]
+print(mutable_list)
+mutable_list[0] = 1000
+mutable_list[1] = "1000"
+print(mutable_list)
