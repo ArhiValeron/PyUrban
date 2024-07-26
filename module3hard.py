@@ -37,7 +37,7 @@ def calculate_structure_sum(*args):
             bull_shit += calculate_structure_sum(*i.keys())
             bull_shit += calculate_structure_sum(*i.values())
             continue
-        elif type(i) == list or type(i) == set or tuple:
+        elif isinstance(i, (list, set, tuple)):
             bull_shit += calculate_structure_sum(*i)
     return bull_shit
 
