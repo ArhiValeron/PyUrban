@@ -12,8 +12,8 @@
 # Запустите эти функции в модуле module_4_1, передав первым аргументом произвольное число отличное от 0, вторым аргументом - 0
 # Выведи результаты вызовов этих функций на экран(в консоль).
 
-from true_math import divide as true_divide
-from fake_math import divide as fake_divide
+from Old.true_math import divide as true_divide
+from Old.fake_math import divide as fake_divide
 
 
 result1 = fake_divide(69, 3)

@@ -22,19 +22,23 @@ class House:
         self.name = name
         self.current_floor = 1
 
-
-    def go_to(self,new_floor):
+    def go_to(self, new_floor):
         if 1 <= new_floor <= self.number_of_floors:
             for i in range(new_floor):
-                print(f"{i+1} этаж")
+                print(f"{i + 1} этаж")
         else:
             print(f"Такого этажа не существует")
 
+    def __str__(self):
+        return self.name
 
+    def __len__(self):
+        return self.number_of_floors
 
-h1 = House('ЖК Горский', 18)
-h2 = House('Домик в деревне', 2)
-print(h1.name)
-h1.go_to(5)
-print(h2.name)
-h2.go_to(10)
+if __name__ == "__main__":
+    h1 = House('ЖК Горский', 18)
+    h2 = House('Домик в деревне', 2)
+    print(h1.name)
+    h1.go_to(5)
+    print(h2.name)
+    h2.go_to(10)
