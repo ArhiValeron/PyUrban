@@ -20,7 +20,6 @@ class House:
     def __init__(self, name, floors):
         self.number_of_floors = floors
         self.name = name
-        self.current_floor = 1
 
     def go_to(self, new_floor):
         if 1 <= new_floor <= self.number_of_floors:
@@ -30,7 +29,7 @@ class House:
             print(f"Такого этажа не существует")
 
     def __str__(self):
-        return self.name
+        return (f"Название: {self.name}, количество этажей: {self.number_of_floors}")
 
     def __len__(self):
         return self.number_of_floors
