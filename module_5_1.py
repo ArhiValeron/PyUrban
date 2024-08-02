@@ -24,7 +24,7 @@ class House:
         return super().__new__(cls)
 
     def __init__(self, name, floors):
-        self.number_of_floors = floors          # House creation
+        self.number_of_floors = floors          # House creationdsad
         self.name = name
 
     def go_to(self, new_floor):
