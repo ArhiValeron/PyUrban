@@ -156,11 +156,11 @@ ur.watch_video('Для чего девушкам парень программи
 
 # Проверка входа в другой аккаунт
 ur.register('vasya_pupkin', 'F8098FM8fjm9jmi', 55)
-print(f"Текущий пользователь: {ur.current_user[0]}")
+print(f"Текущий пользователь: {ur.current_user}")
 
 # Попытка воспроизведения несуществующего видео
 ur.watch_video('Лучший язык программирования 2024 года!')
-print(f"Текущий пользователь: {ur.current_user[0]}")
+print(f"Текущий пользователь: {ur.current_user}")
 ur.log_in('vasya_pupkin', 'lolkekcheburek')
 ur.watch_video('Лучший язык программирования 2024 года!')
-print(f"Текущий пользователь: {ur.current_user[0]}")
+print(f"Текущий пользователь: {ur.current_user}")
