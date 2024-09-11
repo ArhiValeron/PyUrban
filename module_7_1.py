@@ -35,7 +35,6 @@ class Shop:
     def get_products(self):
         with open(self.__file_name, 'r') as f:
             products = f.read()
-        f.close()
         return products
 
     def add(self, *products):
@@ -45,7 +44,7 @@ class Shop:
                     f.write(f'{product}\n')
                 else:
                     print(f'Продукт {product.name} уже есть в магазине')
-                    f.close()
+
 
 
 s1 = Shop()
