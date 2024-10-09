@@ -45,3 +45,5 @@ first_ball = MysticBall('Да', 'Нет', 'Наверное')
 print(first_ball())
 print(first_ball())
 print(first_ball())
+
+
