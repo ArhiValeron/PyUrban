@@ -4,8 +4,12 @@ except ModuleNotFoundError:
     import sys
     import subprocess
     print("Модуль sympy не установлен. Установка...")
-    subprocess.run([sys.executable, "-m", "pip", "install", "sympy"])
-    print("Установка завершена.")
+    result = subprocess.run([sys.executable, "-m", "pip", "install", "sympy"])
+    if result.returncode == 0:
+        print("Установка завершена.")
+    else:
+        print("Ошибка установки.")
+        raise ModuleNotFoundError("Не удалось установить sympy")
     from sympy.ntheory import isprime
 
 def is_prime_(func):
