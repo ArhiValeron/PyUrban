@@ -6,17 +6,14 @@ def all_variants(text):
     :param text: Строка str
     :yield: вариант обрубка поочередно
     """
-    a, b = 0, 1
+    b = 1
     for i in range(len(text)+1):
         for j in range(len(text)+1-b):
-            yield text[a+j:b+j]
+            yield text[j:b+j]
         b += 1
 
 
-
-
-
-a = all_variants("abc")
+a = all_variants("0123456789")
 
 for i in a:
     print(i)
