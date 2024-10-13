@@ -47,7 +47,7 @@ class WordsFinder():
 
 
 ####################################################################################################################
-finder2 = WordsFinder('products.txt')
+finder2 = WordsFinder('../products.txt')
 print(finder2.get_all_words())
 print(finder2.find('Groceries'))
 print(finder2.count('PoTato'))

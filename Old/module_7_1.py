@@ -30,7 +30,7 @@ class Product:
         return f'{self.name}, {self.weight}, {self.category}'
 class Shop:
     def __init__(self):
-        self.__file_name = 'products.txt'
+        self.__file_name = '../products.txt'
 
     def get_products(self):
         with open(self.__file_name, 'r') as f:
