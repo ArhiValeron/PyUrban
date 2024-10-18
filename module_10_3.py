@@ -8,6 +8,7 @@ class Bank:
         self.balance = 0
         self.lock = threading.Lock()
         self.task_queue = queue.Queue()
+        self.stop_flag = False
 
     def deposit(self):
         for _ in range(100):
@@ -22,7 +23,7 @@ class Bank:
             time.sleep(0.01)
 
     def process_task(self):
-        while True:
+        for _ in range(200):
             task, amount = self.task_queue.get()
             self.lock.acquire()
             try:
@@ -40,6 +41,7 @@ class Bank:
             self.task_queue.task_done()
 
 # Создание объекта Bank
+
 bank = Bank()
 
 # Создание потоков
