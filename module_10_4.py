@@ -13,7 +13,7 @@ class Guest(threading.Thread):
     def __init__(self, name):
         threading.Thread.__init__(self)
         self.name = name
-        self.table = None
+        self.table = None # для читаемости сообщений
     def run(self):
         wait_time = rand(3, 10)
         print(f"{self.name} сидит за столом {self.table}, {wait_time} секунд.")
