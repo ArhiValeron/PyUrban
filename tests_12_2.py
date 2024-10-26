@@ -1,6 +1,5 @@
 import runner_and_tournament
 import unittest
-import sys
 
 class TournamentTest(unittest.TestCase):
     all_results = {}
