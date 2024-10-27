@@ -16,7 +16,6 @@ class TournamentTest(unittest.TestCase):
         self.Nick = runner_and_tournament.Runner("Nick", self.speed3)
 
 
-
     @classmethod
     def tearDownClass(cls):
         for element in cls.all_results:

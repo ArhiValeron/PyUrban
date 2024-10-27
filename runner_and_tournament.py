@@ -38,3 +38,4 @@ class Tournament:
                     place += 1
                     self.participants.remove(participant)
         return finishers
+
