@@ -1,6 +1,8 @@
 import runner_and_tournament
 import unittest
 
+is_frozen = False
+
 class TournamentTest(unittest.TestCase):
 
     @classmethod
@@ -21,7 +23,7 @@ class TournamentTest(unittest.TestCase):
         for element in cls.all_results:
             print(element)
 
-
+    @unittest.skipIf(is_frozen, "Тесты в этом кейсе заморожены")
     def test_tournament_Usain_Nick(self):
         tournament = runner_and_tournament.Tournament(90, self.Usain, self.Nick)
         results = tournament.start()
@@ -29,6 +31,7 @@ class TournamentTest(unittest.TestCase):
         self.assertTrue(results[2] == "Nick")
         self.all_results.append(results)
 
+    @unittest.skipIf(is_frozen, "Тесты в этом кейсе заморожены")
     def test_tournament_Andrey_Nick(self):
         tournament = runner_and_tournament.Tournament(90, self.Andrey, self.Nick)
         results = tournament.start()
@@ -36,6 +39,7 @@ class TournamentTest(unittest.TestCase):
         self.assertTrue(results[2] == "Nick")
         self.all_results.append(results)
 
+    @unittest.skipIf(is_frozen, "Тесты в этом кейсе заморожены")
     def test_tournament_Usain_Andrey_Nick(self):
         tournament = runner_and_tournament.Tournament(90, self.Usain, self.Andrey, self.Nick)
         results = tournament.start()

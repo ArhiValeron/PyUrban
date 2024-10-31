@@ -1,7 +1,7 @@
 class Runner:
     def __init__(self, name, speed=5):
         if speed < 0:
-            print("Скорость не ")
+            print("Скорость не может быть меньше 0")
         self.name = name
         self.distance = 0
         self.speed = speed
