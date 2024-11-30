@@ -3,7 +3,7 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher, F, html, Router
-from aiogram.filters import CommandStart, Command, CommandObject, StateFilter
+from aiogram.filters import CommandStart, Command, StateFilter
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
@@ -53,12 +53,12 @@ my_router = Router(name=__name__)
 
 @dp.message(CommandStart())  #Кнопка /Start
 async def cmd_start(message: Message):
-    await message.answer(f"Привет! {html.bold(html.quote(message.from_user.full_name))}! \n"
+    await message.answer(text=f"Привет! {html.bold(html.quote(message.from_user.full_name))}! \n"
                          f"Я бот помогающий твоему здоровью. \n"
                          f"Твой ID:{message.from_user.id} \n"
-                         f"Что бы узнать рекомендуемую норму калорий используй команду /callories \n"
+                         f"Что бы узнать рекомендуемую норму калорий кнопку Рассчитать \n"
                          f"Что бы получить помощь используй команду /help \n"
-                         , parse_mode="HTML")
+                         , parse_mode="HTML", reply_markup=make_row_keyboard(["Рассчитать", "Информация"]))
 
 
 @dp.message(Command('help'))
@@ -74,13 +74,18 @@ async def cmd_hello(message: Message):
     )
 
 
+@dp.message(F.text == "Информация")
+async def get_life(message: Message):
+    await message.answer("Тут могла бы быть Ваша реклама!")
+
+
 @dp.message(F.text == "Я буду жить?")
 async def get_life(message: Message):
     await message.answer("Конечно, будете!")
 
 
 #FSM command callories
-@dp.message(StateFilter(None), Command("callories"))
+@dp.message(StateFilter(None), F.text == "Рассчитать")
 async def cmd_callories(message: Message, state: FSMContext):
     await message.answer(
         text="Подскажите, какого вы пола:",
