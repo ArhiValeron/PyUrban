@@ -10,7 +10,6 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.utils.chat_action import ChatActionSender
 
-
 from config import bot_token as TOKEN
 
 bot = Bot(token=TOKEN)
@@ -25,10 +24,8 @@ genders = ["Male", "Female"]
 class UserState(StatesGroup):
     gender = State()
     age = State()
-    weidht = State()
+    weight = State()
     growth = State()
-
-
 
 
 #Вспомогательные функции
@@ -82,7 +79,8 @@ async def get_life(message: Message):
     await message.answer("Конечно, будете!")
 
 
-@router.message(StateFilter(None), Command("callories"))
+#FSM command callories
+@dp.message(StateFilter(None), Command("callories"))
 async def cmd_callories(message: Message, state: FSMContext):
     await message.answer(
         text="Подскажите, какого вы пола:",
@@ -92,10 +90,68 @@ async def cmd_callories(message: Message, state: FSMContext):
     await state.set_state(UserState.gender)
 
 
+@dp.message(UserState.gender)
+async def callories_gender(message: Message, state: FSMContext):
+    if message.text == "Female" or message.text == "Male":
+        await state.update_data(gender=message.text)
+        await message.answer("Сколько Вам полных лет?")
+        await state.set_state(UserState.age)
+    else:
+        await message.answer("Используйте кнопки для определения пола \n"
+                             "Male - Мужской. \n"
+                             "Female - Женский")
+
+
+@dp.message(UserState.age)
+async def callories_age(message: Message, state: FSMContext):
+    try:
+        age = int(message.text)
+        if 5 < age < 120:
+            await message.answer("Сколько вы весите в кг? Введите целое число")
+            await state.update_data(age=age)
+            await state.set_state(UserState.weight)
+        else:
+            await message.answer("Возраст должен быть в диапазоне от 5 до 120 лет.")
+    except ValueError:
+        await message.answer("Пожалуйста, введите целое число.")
+
+
+@dp.message(UserState.weight)
+async def callories_weight(message: Message, state: FSMContext):
+    try:
+        weight = int(message.text)
+        if weight > 0:
+            await state.update_data(weight=weight)
+            await message.answer("Введите свой рост в см: ")
+            await state.set_state(UserState.growth)
+        else:
+            await message.answer("Вес должен быть целым положительным числом.")
+    except ValueError:
+        await message.answer("Пожалуйста, введите целое число для веса.")
+
+@dp.message(UserState.growth)
+async def callories_growth(message: Message, state: FSMContext):
+    try:
+        growth = int(message.text)
+        if growth > 0:
+            await state.update_data(growth=growth)
+            data = await state.get_data()
+            await message.answer(f"Полученные данные: {data}")
+            result = await callories(data['weight'], data['growth'], data['age'], data['gender'])
+            await message.answer(f"Ваша рекомендуемая норма калорий: {result}")
+            await state.clear() # Очищаем состояние после завершения
+        else:
+            await message.answer("Рост должен быть положительным числом.")
+    except ValueError:
+        await message.answer("Пожалуйста, введите целое число для роста.")
+    except KeyError as e:
+        await message.answer(f"Ошибка: Недостаточно данных. {e}")
+
+
 #Необработанные
-"""@dp.message(F.text != "")
+@dp.message()
 async def get_life(message: Message):
-    await message.answer("Введите команду /start, чтобы начать общение.")"""
+    await message.answer("Введите команду /start, чтобы начать общение.")
 
 
 #Кривой стартер для бота
