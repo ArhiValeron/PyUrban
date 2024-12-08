@@ -1,23 +1,33 @@
 #используется aiogram 3х
 import asyncio
 import logging
+from ftplib import all_errors
 
 from aiogram import Bot, Dispatcher, F, html, Router
-from aiogram.filters import CommandStart, Command, StateFilter
-from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
+from aiogram.filters import CommandStart, StateFilter
+from aiogram.types import (Message, ReplyKeyboardMarkup, KeyboardButton,
+                           InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery)
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.storage.memory import MemoryStorage
-from aiogram.utils.chat_action import ChatActionSender
 
 from config import bot_token as TOKEN
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
-router = Router(name=__name__)
-dp.include_router(router)
+#Инлайн клавиатуры
+
+kb_main = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text="Рассчет калорий", callback_data = "calories_math") ],
+    [InlineKeyboardButton(text="Помощ", callback_data = "help")],
+    [InlineKeyboardButton(text="Приветствие", callback_data= "hello")],
+    [InlineKeyboardButton(text="Иформация", callback_data="info")]
+])
+
+
+
 #Константы
-genders = ["Male", "Female"]
+genders = ["Мужской", "Женский"]
 
 
 #Классы
@@ -27,12 +37,15 @@ class UserState(StatesGroup):
     weight = State()
     growth = State()
 
+#Флаги
 
-#Вспомогательные функции
+
+
+#Функции
 async def callories(weidht, growth, age, gender):
-    if gender == "Male":
+    if gender == "Мужской":
         ret = (10 * weidht) + (6.25 * growth) - (5 * age) + 5
-    if gender == "Female":
+    if gender == "Женский":
         ret = (10 * weidht) + (6.25 * growth) - (5 * age) - 161
     return ret
 
@@ -44,10 +57,13 @@ def make_row_keyboard(items: list[str]) -> ReplyKeyboardMarkup:
     :return: объект реплай-клавиатуры
     """
     row = [KeyboardButton(text=item) for item in items]
-    return ReplyKeyboardMarkup(keyboard=[row], resize_keyboard=True)
+    return ReplyKeyboardMarkup(keyboard=[row], resize_keyboard=True,
+                               one_time_keyboard=True,
+                               input_field_placeholder="Воспользуйтесь кнопками ниже." )
 
 
-#Обработчики сообщений
+
+#Обработчики сообщений ------------------------------------------------------------
 my_router = Router(name=__name__)
 
 
@@ -56,27 +72,29 @@ async def cmd_start(message: Message):
     await message.answer(text=f"Привет! {html.bold(html.quote(message.from_user.full_name))}! \n"
                          f"Я бот помогающий твоему здоровью. \n"
                          f"Твой ID:{message.from_user.id} \n"
-                         f"Что бы узнать рекомендуемую норму калорий кнопку Рассчитать \n"
-                         f"Что бы получить помощь используй команду /help \n"
-                         , parse_mode="HTML", reply_markup=make_row_keyboard(["Рассчитать", "Информация"]))
+                         , parse_mode="HTML", reply_markup=kb_main)
 
 
-@dp.message(Command('help'))
-async def get_help(message: Message):
-    await message.answer("К сожалению, Вас уже не спасти.")
+@dp.callback_query(F.data == 'help')
+async def get_help(callback: CallbackQuery):
+    await callback.answer("Помощь уже близко! Держитесь!")
 
 
-@dp.message(Command("hello"))
-async def cmd_hello(message: Message):
-    await message.answer(
-        f"Hello, {html.bold(html.quote(message.from_user.full_name))}",
+@dp.callback_query(F.data == "hello")
+async def cmd_hello(callback: CallbackQuery):
+    await callback.message.answer(
+        f"Привет, {html.bold(html.quote(callback.from_user.full_name))}",
         parse_mode="HTML"
     )
+    await callback.answer("")
 
 
-@dp.message(F.text == "Информация")
-async def get_life(message: Message):
-    await message.answer("Тут могла бы быть Ваша реклама!")
+@dp.callback_query(F.data == "info")
+async def get_life(message: CallbackQuery):
+    await message.answer(f"Кривобот написан, студентом университета Urban \n"
+                         f" Бурдиным Валерием Валерьевичем\n"
+                         f"Возможно все права защищены, но это не точно.\n"
+                         f"@TechnoBUG", show_alert=True)
 
 
 @dp.message(F.text == "Я буду жить?")
@@ -84,27 +102,35 @@ async def get_life(message: Message):
     await message.answer("Конечно, будете!")
 
 
-#FSM command callories
-@dp.message(StateFilter(None), F.text == "Рассчитать")
-async def cmd_callories(message: Message, state: FSMContext):
-    await message.answer(
-        text="Подскажите, какого вы пола:",
-        reply_markup=make_row_keyboard(genders)
-    )
+#FSM command calories ========================================================
+@dp.message(F.text == "стоп")
+async def stop_calories(message: Message, state: FSMContext):
+    await message.answer("Опрос прерван, для возврата в меню воспользуйтесь командой /start")
+    await state.clear()
+
+@dp.callback_query(StateFilter(None), F.data == "calories_math")
+async def cmd_callories(callback: CallbackQuery, state: FSMContext):
     # Устанавливаем пользователю состояние "выбирает пол"
     await state.set_state(UserState.gender)
+    await callback.answer("Пройдите небольшой опрос для уточнения данных,"
+                          " что бы выйти из опроса в любой момент напишите 'стоп'.", show_alert=True)
+    await callback.message.answer(
+        text="Подскажите, какого вы пола:",
+        reply_markup=make_row_keyboard(genders, )
+    )
 
 
 @dp.message(UserState.gender)
 async def callories_gender(message: Message, state: FSMContext):
-    if message.text == "Female" or message.text == "Male":
+    if message.text == "Женский" or message.text == "Мужской":
         await state.update_data(gender=message.text)
         await message.answer("Сколько Вам полных лет?")
         await state.set_state(UserState.age)
+
     else:
         await message.answer("Используйте кнопки для определения пола \n"
                              "Male - Мужской. \n"
-                             "Female - Женский")
+                             "Female - Женский", reply_markup = make_row_keyboard(genders))
 
 
 @dp.message(UserState.age)
@@ -151,6 +177,8 @@ async def callories_growth(message: Message, state: FSMContext):
         await message.answer("Пожалуйста, введите целое число для роста.")
     except KeyError as e:
         await message.answer(f"Ошибка: Недостаточно данных. {e}")
+        await state.clear()  # Очищаем состояние для выхода из последовательности
+
 
 
 #Необработанные
