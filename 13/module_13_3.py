@@ -5,9 +5,9 @@ import logging
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
-from bot_inf import bot_token as TOKEN
+from config import bot_token as TOKEN
 
-bot = Bot(token = TOKEN)
+bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 #Обработчики сообщений
