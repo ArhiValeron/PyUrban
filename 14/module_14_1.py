@@ -15,10 +15,8 @@ balance INTEGER NOT NULL
 )
 ''')
 
-for i in range(1,11):
+for i in range(1, 11):
     person = Fake_person.faker_person_create()
-    print (f"{person["Ф.И.О."]},{person["E-mail"]}, {type(person["Возраст"])}"
-           )
     dbutcher.execute("INSERT INTO Users(username, email, age, balance) VALUES (?,?,?,?)",
                      (person["Ф.И.О."],person["E-mail"], int(person["Возраст"]), 1000,))
 dblink.commit()
@@ -36,7 +34,7 @@ for i, row in enumerate(rows):
         dblink.commit()
 
 #сокращение штата, обьемы упали
-dbutcher.execute("SELECT id FROM Users")  # махинации с балансом
+dbutcher.execute("SELECT id FROM Users")
 rows = dbutcher.fetchall()
 for i, row in enumerate(rows):
     if i % 3 == 0:
@@ -44,7 +42,7 @@ for i, row in enumerate(rows):
         dblink.commit()
 
 
-dbutcher.execute("SELECT * FROM Users WHERE age!=60") # 60 лет!
+dbutcher.execute("SELECT * FROM Users WHERE age!=60")# 60 лет!
 all_rows = dbutcher.fetchall()
 
 column_names = [description[0] for description in dbutcher.description]
@@ -56,9 +54,6 @@ if all_rows:
         print()
 else:
     print("Запрос не вернул результатов.")
-
-
-
 
 
 dblink.commit()

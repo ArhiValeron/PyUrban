@@ -16,8 +16,8 @@ def calculate_age():
     month_f = int(str(faker.date_of_birth(minimum_age=20, maximum_age=65)).split("-")[1])
     day_f = int(str(faker.date_of_birth(minimum_age=20, maximum_age=65)).split("-")[2])
     age_t = today.year - year_f - ((today.month, today.day) < (month_f, day_f))
-    bith_date = f'{day_f}.{month_f}.{year_f}'
-    return age_t, bith_date
+    birth_date = f'{day_f}.{month_f}.{year_f}'
+    return age_t, birth_date
 
 
 def faker_person_create():
