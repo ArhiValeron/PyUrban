@@ -1,7 +1,6 @@
 #используется aiogram 3х
 import asyncio
 import logging
-from ftplib import all_errors
 
 from aiogram import Bot, Dispatcher, F, html, Router
 from aiogram.filters import CommandStart, StateFilter
@@ -18,9 +17,9 @@ dp = Dispatcher(storage=MemoryStorage())
 #Инлайн клавиатуры
 
 kb_main = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text="Рассчет калорий", callback_data = "calories_math") ],
-    [InlineKeyboardButton(text="Помощ", callback_data = "help")],
-    [InlineKeyboardButton(text="Приветствие", callback_data= "hello")],
+    [InlineKeyboardButton(text="Рассчет калорий", callback_data="calories_math")],
+    [InlineKeyboardButton(text="Помощь", callback_data="help")],
+    [InlineKeyboardButton(text="Приветствие", callback_data="hello")],
     [InlineKeyboardButton(text="Иформация", callback_data="info")]
 ])
 
