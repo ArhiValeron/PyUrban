@@ -8,9 +8,8 @@ from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.storage.memory import MemoryStorage
-from aiogram.utils.chat_action import ChatActionSender
 
-from config import bot_token as TOKEN
+from T_R_K.config import bot_token as TOKEN
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(storage=MemoryStorage())

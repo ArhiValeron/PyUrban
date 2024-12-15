@@ -5,7 +5,7 @@ import logging
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
-from config import bot_token as TOKEN
+from T_R_K.config import bot_token as TOKEN
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()

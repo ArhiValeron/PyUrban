@@ -19,3 +19,4 @@ averageBalance = balanceTotal/num_rows
 
 print(f"{averageBalance:.2f}")
 dblink.close()
+0
