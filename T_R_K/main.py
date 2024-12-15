@@ -1,6 +1,7 @@
 #используется aiogram 3х
 import asyncio
 import logging
+import os
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
@@ -13,6 +14,7 @@ bot = Bot(token=TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
 dp.include_router(main_router)
 
+media_dir = 1
 
 #Кривой стартер для бота
 async def main():

@@ -13,7 +13,9 @@ async def cmd_start(message: Message):
     await message.answer(text=f"Привет! {html.bold(html.quote(message.from_user.full_name))}! \n"
                          f"Я бот помогающий твоему здоровью. \n"
                          f"Твой ID:{message.from_user.id} \n"
-                         , parse_mode="HTML", reply_markup=kb_main)
+                         , parse_mode="HTML")
+    await message.answer(text="Главное меню:",
+                         reply_markup=kb_main)
 
 
 @router.callback_query(F.data == 'help')
@@ -32,12 +34,12 @@ async def cmd_hello(callback: CallbackQuery):
 
 @router.callback_query(F.data == "info")
 async def get_life(message: CallbackQuery):
-    await message.answer(f"Кривобот написан, студентом университета Urban \n"
+    await message.answer(f"Кривобот создан студентом университета Urban, \n"
                          f" Бурдиным Валерием Валерьевичем\n"
                          f"Все права защищены, но это не точно.\n"
                          f"@TechnoBUG", show_alert=True)
 
 @router.callback_query(F.data == "buy_menu")
 async def get_life(message: CallbackQuery):
-    await message.message.answer("Каталог:", reply_markup=kb_catalog)
-    await message.answer("")
+    await message.message.edit_text("Каталог:", reply_markup=kb_catalog)
+    await message.answer("Вы перешли в каталог")
