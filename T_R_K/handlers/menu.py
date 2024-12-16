@@ -3,7 +3,7 @@ from aiogram import F, html, Router
 from aiogram.filters import CommandStart
 from aiogram.types import (Message, CallbackQuery)
 
-from Keyboards import kb_main, kb_catalog
+from T_R_K.keyboards import kb_main, kb_catalog
 
 
 router = Router(name=__name__)

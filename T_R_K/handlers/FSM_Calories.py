@@ -4,7 +4,7 @@ from aiogram.types import (Message, CallbackQuery)
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.fsm.context import FSMContext
 
-from Keyboards import make_row_keyboard
+from T_R_K.keyboards import make_row_keyboard
 
 
 router = Router(name=__name__)
