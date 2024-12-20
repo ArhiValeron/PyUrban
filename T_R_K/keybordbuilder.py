@@ -13,6 +13,8 @@ if all_rows:
     for row in all_rows:
         buttons.append(f"{row[1]}, Цена {row[3]}р.")
         call_data.append(f"product_buying{row[0]}")
+    buttons.append("Назад")
+    call_data.append("back_to_main")
 else:
     buttons = ["Нет товаров в наличии."]
     call_data = ["back_to_main"]
