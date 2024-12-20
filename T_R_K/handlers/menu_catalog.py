@@ -1,9 +1,8 @@
 import os
-import asyncio
 
 from aiogram import F, Router
-from T_R_K.keyboards import kb_main
-from aiogram.types import CallbackQuery, FSInputFile, Message
+from T_R_K.KeyBoards.keyboards import kb_main
+from aiogram.types import CallbackQuery
 
 router = Router(name=__name__)
 

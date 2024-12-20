@@ -1,17 +1,7 @@
 #используется aiogram 3х
-import asyncio
-import logging
 
-from aiogram import Bot, Dispatcher, F, html, Router
-from aiogram.filters import CommandStart, StateFilter
-from aiogram.types import (Message, ReplyKeyboardMarkup, KeyboardButton,
-                           InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery)
-from aiogram.fsm.state import StatesGroup, State
-from aiogram.fsm.context import FSMContext
-from aiogram.fsm.storage.memory import MemoryStorage
-
-from T_R_K.keyboards import make_row_keyboard
-
+from aiogram import F, Router
+from aiogram.types import (Message)
 
 router = Router(name=__name__)
 
