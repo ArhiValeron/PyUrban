@@ -9,6 +9,8 @@ from routers import main_router
 
 from key import bot_token as TOKEN
 
+from Fill_db import db_close
+
 bot = Bot(token=TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
 dp.include_router(main_router)
@@ -26,3 +28,6 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Exit by KeyboardInterrupt")
+    finally:
+        db_close()
+

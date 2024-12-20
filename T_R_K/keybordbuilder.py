@@ -23,5 +23,5 @@ kb_buttons = [[InlineKeyboardButton(text=text, callback_data=callback)]
               for text, callback in zip(buttons, call_data)]
 kb_catalog = InlineKeyboardMarkup(inline_keyboard=kb_buttons)
 
-dblink.close()
+
 

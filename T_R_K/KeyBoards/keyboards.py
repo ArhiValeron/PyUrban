@@ -2,14 +2,15 @@ from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton,
                            InlineKeyboardButton, InlineKeyboardMarkup)
 
 
-
+#     [InlineKeyboardButton(text="Зарегистрироваться", callback_data="add_user")]
 
 kb_main = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text="Рассчет калорий", callback_data="calories_math")],
     [InlineKeyboardButton(text="Помощь", callback_data="help")],
     [InlineKeyboardButton(text="Приветствие", callback_data="hello")],
     [InlineKeyboardButton(text="Иформация", callback_data="info")],
-    [InlineKeyboardButton(text="Каталог", callback_data="buy_menu")]
+    [InlineKeyboardButton(text="Каталог", callback_data="buy_menu")],
+    [InlineKeyboardButton(text="Зарегистрироваться", callback_data="add_user")]
 ])
 """
 kb_catalog = InlineKeyboardMarkup(inline_keyboard=[

@@ -9,6 +9,7 @@ from T_R_K.keybordbuilder import kb_catalog
 
 router = Router(name=__name__)
 
+
 @router.message(CommandStart())  #Кнопка /Start
 async def cmd_start(message: Message):
     await message.answer(text=f"Привет! {html.bold(html.quote(message.from_user.full_name))}! \n"
@@ -38,7 +39,7 @@ async def get_life(message: CallbackQuery):
     await message.answer(f"Кривобот создан студентом университета Urban, \n"
                          f" Бурдиным Валерием Валерьевичем\n"
                          f"Все права защищены, но это не точно.\n"
-                         f"@TechnoBUG", show_alert=True)
+                         f"Arhivaleron@yandex.ru", show_alert=True)
 
 @router.callback_query(F.data == "buy_menu")
 async def get_life(message: CallbackQuery):
